@@ -9,3 +9,7 @@ Optional: Use /data/ Python scripts for plotting and analysis.
 
 #Environment Variables#
 None required. All constants (molar absorptivity, path length, thresholds) are configurable in the .ino files.
+
+#License#
+MIT License
+Permission is granted to use, modify, and distribute this project for research and development with attribution.
