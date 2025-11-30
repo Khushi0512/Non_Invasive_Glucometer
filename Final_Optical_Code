@@ -1,0 +1,53 @@
+#include <math.h> // For log10() function
+const int irPin = A0; // Analog pin for IR sensor input
+float voltage; // Variable to store sensor voltage
+float glucose; // Variable for calculated glucose concentration
+float absorbance; // Variable for absorbance calculation
+const float transmittedIntensity = 5.0; // Baseline intensity (no finger)
+const float molarAbsorptivity = 0.01; // Example value, adjust based on
+calibration
+const float pathLength = 1.0; // Example path length in cm, adjust as
+needed
+const int fingerThreshold = 50; // Threshold for finger detection (tune
+as needed)
+void setup() {
+Serial.begin(9600); // Initialize Serial for debugging
+}
+void loop() {
+// Read voltage from IR sensor
+int sensorValue = analogRead(irPin);
+voltage = sensorValue * (5.0 / 1023.0); // Convert to voltage (0-5V)
+// Finger detection mechanism
+if (sensorValue > fingerThreshold) { // Threshold for finger detection (tune as
+needed)
+
+// Assume receivedIntensity is proportional to voltage
+float receivedIntensity = voltage;
+// Calculate absorbance using Beer-Lambert Law
+if (receivedIntensity > 0) {
+absorbance = -log10(receivedIntensity / transmittedIntensity);
+} else {
+absorbance = 0;
+}
+// Calculate glucose concentration using absorbance
+if (absorbance > 0) {
+glucose = absorbance / (molarAbsorptivity * pathLength);
+} else {
+glucose = 0;
+}
+// Output results to Serial Monitor
+Serial.print("Voltage: ");
+Serial.print(voltage);
+Serial.print(" V, Absorbance: ");
+Serial.print(absorbance);
+Serial.print(", Glucose: ");
+Serial.print(glucose);
+Serial.println(" mg/dL");
+} else {
+// No finger detected
+glucose = 0;
+absorbance = 0;
+Serial.println("No finger detected. Glucose Level: 0 mg/dL");
+}
+delay(2000); // Update every 2 seconds
+}
