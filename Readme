@@ -1,0 +1,11 @@
+Non-Invasive Glucose Monitoring System (IR-Based Prototype)
+This repository contains Arduino codes, signal-processing logic, and experiment logs for developing a non-invasive glucometer using IR absorption and Beer-Lambert’s law. The system detects finger presence, measures photodiode voltage, computes absorbance, and converts it into glucose concentration. Multiple algorithmic approaches—mean filtering, calibration mapping, and absorbance-based estimation—are included.
+#Setup Steps#
+1. Hardware: IR LED + IR Photodiode, LM358 amplifier, Arduino UNO.
+2. Connect IR receiver output → LM358 → Arduino A0.
+3. Upload code from trail_1,2,3.
+4. Open Serial Monitor at 9600 baud to view glucose values.
+Optional: Use /data/ Python scripts for plotting and analysis.
+
+#Environment Variables#
+None required. All constants (molar absorptivity, path length, thresholds) are configurable in the .ino files.
